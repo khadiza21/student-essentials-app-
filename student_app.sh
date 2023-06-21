@@ -4,35 +4,39 @@ FILE=$(pwd)/admin.log
 LOGGEDIN=$(pwd)/loggedin.log
 
 function home() {
+
     user=$(whoami)
     email=$(awk -F ":" '{print $1}' admin.log)
-    date=$(date +"%Y-%m-%d")
+    date=$(date +"%d-%m-%y")
     time=$(date +"%H:%M:%S")
 
     yad --title="Student Essentials App" --center --borders=10 --width=450 --height=500 --text-align=center --separator="" \
         --text="<span><b><big><big>Welcome!</big></big></b></span>" \
-        --form \
-        --field="<b><u>here</u></b>":LBL \
+        --text="<span><b>About Student Essentials App</b></span>" \
+        --text="<span>This is an app made for as a helping hand as an student or others peoples. Here You can create your account by sign up then you can deep drive in this app by log in using your email and password. In this app you get an magical calculator , stopwatch, and also make your to do list and can manage it. </span>" --text-align=left \
+        --form --separator="" \
+        --field="<b>Username:</b> $user":LBL \
+        --field="<b>Email:</b> $email":LBL \
         --field="<b>Date:</b> $date":LBL \
         --field="<b>Time:</b> $time":LBL \
-        --field="<b>Username:</b> $user":LBL \
         --button="Exit":0 \
         --button="To Do List":1 \
         --button="calculator":2 \
         --button="stopwatch":3 \
         --button="Logout":4 \
-        # --field="todo":FBTN "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "./to_do.sh" \
-        # --field="stopwatch":FBTN "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "./stopwatch.sh" \
-    #    --field="calculator":FBTN "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "./calculator.sh" \
+
     code=${?}
 
     if [ $code == 0 ]; then
         echo "Student Essentials App closed by user"
         exit
+    elif [ $code == 2 ]; then
+        echo "Calculator"
+        calculator
     elif [ $code == 4 ]; then
         echo "Logged out"
         rm loggedin.log
-        ./linux_toolbox.sh
+        ./student_app.sh
         exit
     fi
 }
@@ -71,7 +75,7 @@ function signup_window() {
     echo "Signup window..."
 
     # signup window
-    signup=$(yad --form --center --borders=10 --width=350 --height=300 --title="Student Essentials App - Signup" --separator=' ' --text-align=center --text="<span><b><big><big>Signup</big></big></b></span>" \
+    signup=$(yad --form --center --borders=10 --width=450 --height=300 --title="Student Essentials App - Signup" --separator=' ' --text-align=center --text="<span><b><big><big>Signup</big></big></b></span>" \
         --button=Exit:1 \
         --button=Signup:0 \
         --field="Email": \
@@ -86,6 +90,7 @@ function signup_window() {
 
         echo "$email:$password" >> admin.log
         echo "Signup Successful"
+        login_window
     elif [ $valid -eq 1 ]; then
         echo "Student Essentials App closed by user"
         exit
