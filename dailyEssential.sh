@@ -21,7 +21,7 @@ display(){
 
     if [ $res -gt 0 ]
     then 
-       cat $ab
+       cat $ab #display the content of the address book
     else 
        echo "Error: file is not existing!"
     fi
@@ -46,7 +46,7 @@ insert(){
         else 
            echo "Enter First name , Last Name, Mobile number, Address, Blood Group, Relation with you"
            read fname lname mobile address bldgrp rltn
-           record=`echo $fname $lname $email $mobile $address $bldgrp $rltn`
+           record=`echo $fname $lname $mobile $address $bldgrp $rltn`
            echo $record >> $ab
            echo "Record Inserted"
         fi
@@ -72,7 +72,7 @@ modify(){
        then 
           echo "Enter Modified First name , Last Name, Mobile number, Address, Blood Group, Relation with you"
           read fname lname mobile address bldgrp rltn
-          new=`echo $fname $lname $mobile`$email $address $bldgrp $rltn
+          new=`echo $fname $lname $mobile $address $bldgrp $rltn`
           old=`cat $ab | grep $email`
 
           echo "Old Record : $old"
@@ -151,7 +151,7 @@ calorie(){
             ;;
     esac
     
-    echo "Estimated daily calorie requirement: $calories calories"
+    echo "Daily calorie requirement: $calories calories"
 
 
 
