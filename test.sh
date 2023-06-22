@@ -1,3 +1,8 @@
+#!/bin/bash
+
+FILE=$(pwd)/admin.log
+LOGGEDIN=$(pwd)/loggedin.log
+
 # bash functions start
 #calendar window
 # function calendar(){
