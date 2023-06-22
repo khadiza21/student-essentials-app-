@@ -308,12 +308,13 @@ done
 
 
 home (){
+    echo $lines
     date=$(date +"%d-%m-%y")
     time=$(date +"%H:%M:%S")
 
      echo "Date of Today: $date"
      echo "Now Time is $time" 
-
+    echo $lines
 
 while [ true ]
 do 
@@ -330,6 +331,8 @@ do
          3) exit ;;
          *) echo "Wrong Choice!";;
   esac
+
+  
 done
 
 }
