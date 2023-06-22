@@ -72,7 +72,7 @@ modify(){
        then 
           echo "Enter Modified First name , Last Name, Mobile number, Address, Blood Group, Relation with you"
           read fname lname mobile address bldgrp rltn
-          new=`echo $fname $lname $mobile`
+          new=`echo $fname $lname $mobile`$email $address $bldgrp $rltn
           old=`cat $ab | grep $email`
 
           echo "Old Record : $old"
