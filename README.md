@@ -9,6 +9,5 @@ Set Permission:
 chmod +x calendar.sh
 chmod +x linux_toolbox.sh
 
-Before opening Give permission to execute.
-Run using following Command: ./linux_toolbox.sh
+
 
