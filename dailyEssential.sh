@@ -1,8 +1,25 @@
 # !/bin/bash
+# cd Desktop/GUB/OS_course/project/student_essentials_app/
+
+FILE="admin.log"
+LOGGEDIN="loggedin.log"
+
+centerline(){
+        local line="$1"
+        local cli_w=$(tput cols)
+        local t_len=${#line}
+        local center=$(( (cli_w - t_len) / 2 ))
+        printf "%*s" $center
+        echo "$line"
+
+}
+
 
 create(){
-    echo "Enter address book name"
-    read ab
+    echo $liens
+    centerline  "---Crete A New Book---"
+    echo $lines
+    read -p "Enter address book name: " ab
     res=`ls | grep $ab | wc -w`
 
     if [ $res -gt 0 ]
@@ -10,11 +27,14 @@ create(){
        echo "Error : file is already existing! "
     else 
        touch $ab 
-       echo "Adress book created!"
+       echo "Adress book created as $ab!"
     fi
 }
 
 display(){
+    echo $liens
+    centerline  "---Display Infor of a Book---"
+    echo $lines
     echo "Enter address book name"
     read ab
     res=`ls | grep $ab | wc -w`
@@ -25,9 +45,13 @@ display(){
     else 
        echo "Error: file is not existing!"
     fi
+    echo $lies
 }
 
 insert(){
+    echo $liens
+    centerline  "---Insert new Info in a Book---"
+    echo $lines
     echo "Enter address book name"
     read ab
     #check address book is available or not in current working dir
@@ -57,8 +81,12 @@ insert(){
 
 
 modify(){
+    echo $liens
+    centerline  "---Modify data From a Book---"
+    echo $lines
     echo "Enter address book name"
     read ab
+
 
     res=`ls | grep $ab | wc -w`
 
@@ -93,6 +121,9 @@ modify(){
 
 
 delete() {
+    echo $liens
+    centerline  "---Delete Info---"
+    echo $lines
     echo "Enter address book name:"
     read -r ab
 
@@ -113,7 +144,9 @@ delete() {
 
 
 calorie(){
-
+    echo $liens
+    centerline  "---Calorie Measure---"
+    echo $lines
 
     read -p "Enter age: " age
     read -p "Enter gender (male/female): " gender
@@ -150,24 +183,33 @@ calorie(){
             return
             ;;
     esac
-    
-    echo "Daily calorie requirement: $calories calories"
-
+    echo $lines
+    echo "Your Daily calorie requirement: $calories calories"
+    echo $lines
 
 
 }
 
 bmi(){
+    echo $liens
+    centerline  "---BMI Measure---"
+    echo $lines
     read -p "Enter weight in kilograms: " weight
     read -p "Enter height in centimeters: " height
     bmi=$(echo "scale=2; $weight / (($height/100) * ($height/100))" | bc)
+    echo $lines
     echo "Your BMI IS: $bmi"
+    echo $lines
+
 }
 
 
 dectobin(){
-read -p "Enter a decimal number: " decimal
-decimal_to_binary() {
+    echo $liens
+    centerline  "---Decimal TO Binary---"
+    echo $lines
+    read -p "Enter a decimal number: " decimal
+    decimal_to_binary() {
     local num=$1
     local binary="" 
     while [ $num -gt 0 ]; do
@@ -178,22 +220,28 @@ decimal_to_binary() {
     echo "$binary"
 }
 binary=$(decimal_to_binary $decimal)
+echo $lines
 echo "Binary representation the givig decimal vlaue: $binary"
+echo $lines
 }
 
 
 tax(){
+   echo $liens
+   centerline  "---Tax Measure---"
+   echo $lines
    read -p "Enter country: " country
    read -p "Enter tax rate: " tax_rate
    read -p "Enter income amount: " income  
-   tax_amount=$(echo "scale=2; $income * $tax_rate / 100" | bc)
-    
+   tax_amount=$(echo "scale=2; $income * $tax_rate / 100" | bc)  
+   echo $lines
    echo "Tax amount for your $country is : $tax_amount"
+   echo $lines
 }
 
 
 
-# currency(){
+# currency_converter(){
 # api_endpoint="https://v6.exchangerate-api.com/v6/a9b41dccb85d975339bc9553/latest/USD"
 # api_key="a9b41dccb85d975339bc9553"
 
@@ -205,50 +253,6 @@ tax(){
 #   echo "$exchange_rate"
 # }
 
-# show_conversion_dialog() {
-#   local country_list=("Country 1" "Country 2" "Country 3")  
-#   local selected_country
-#   local base_currency
-#   local target_currency
-#   local amount
-
-#   selected_country=$(yad --title "Currency Converter" --text "Select your country:" --list --column="Country" "${country_list[@]}" --width 300 --height 200)
-
-#   if [[ $? -ne 0 ]]; then
-#     exit
-#   fi
-
-#   amount=$(yad --title "Currency Converter" --text "Enter amount in your local currency:" --entry --width 300)
-
-
-#   if [[ $? -ne 0 ]]; then
-#     exit
-#   fi
-
-#   case $selected_country in
-#     "Country 1")
-#       base_currency="USD"
-#       target_currency="EUR"
-#       ;;
-#     "Country 2")
-#       base_currency="USD"
-#       target_currency="GBP"
-#       ;;
-#     "Country 3")
-#       base_currency="USD"
-#       target_currency="JPY"
-#       ;;
-#     *)  # Default values if no match is found
-#       base_currency="USD"
-#       target_currency="EUR"
-#       ;;
-#   esac
-#   exchange_rate=$(get_exchange_rate "$base_currency" "$target_currency")
-#   converted_amount=$(bc <<< "$amount * $exchange_rate")
-#   yad --title "Currency Converter" --text "Conversion Result:\n$amount $base_currency = $converted_amount $target_currency" --width 400 --height 200 --button="OK:0"
-# }
-# show_conversion_dialog
-# }
 
 
 
@@ -258,14 +262,19 @@ tax(){
 calculator(){
     while [ true ]
 do 
-  echo "---------MENU-------"
+  echo $liens
+  centerline  "---Calculator---"
+  echo $lines
   echo "1. Calorie "
   echo "2. BMI "
   echo "3. Decimal to Binary "
   echo "4. Tax Calculator"
   echo "5. Back "
-  echo "Enter Choice"
-  read choice
+  echo $lines
+  read -p "Enter Choice: " choice
+  echo $lines
+
+  echo $lines
 
   case $choice in 
          1) calorie ;;
@@ -275,6 +284,7 @@ do
          5) home ;;
          *) echo "Wrong Choice!";;
   esac
+  echo $lines
 done
 }
 
@@ -283,15 +293,18 @@ addressBook(){
 
 while [ true ]
 do 
-  echo "---------MENU-------"
-  echo "1. Create "
-  echo "2. DIsplay "
-  echo "3. Insert Record "
-  echo "4. Modify Record "
-  echo "5. Delete Record "
+  echo $lines
+  centerline "---Address Book---"
+  echo $lines
+  echo "1. Create Book "
+  echo "2. DIsplay Info of a Book"
+  echo "3. Insert Info in a Book "
+  echo "4. Modify Info in a Book "
+  echo "5. Delete Info in a Book "
   echo "6. Back "
-  echo "Enter Choice"
-  read choice
+  echo $lines
+  read  -p "Enter Choice: " choice
+  echo $lines
 
   case $choice in 
          1) create ;;
@@ -302,6 +315,8 @@ do
          6) home ;;
          *) echo "Wrong Choice!";;
   esac
+
+  echo $lines
 done
 }
 
@@ -309,6 +324,8 @@ done
 
 home (){
     echo $lines
+    FILE=$(pwd)/admin.log
+    LOGGEDIN=$(pwd)/loggedin.log
     date=$(date +"%d-%m-%y")
     time=$(date +"%H:%M:%S")
 
@@ -318,24 +335,105 @@ home (){
 
 while [ true ]
 do 
-  echo "---------MENU-------"
+  echo $liens
+  echo $liens
+  echo $liens
+  centerline "---MENU---"
   echo "1. Calculator "
   echo "2. Address Book "
   echo "3. Exit "
-  echo "Enter Choice"
-  read choice
-
+  echo $liens
+  echo $lines 
+  read -p "Enter Choice: " choice
+  echo $lines
+  echo $lines
   case $choice in 
          1) calculator ;;
          2) addressBook ;;
          3) exit ;;
          *) echo "Wrong Choice!";;
   esac
-
+  echo $lines 
+  echo $lines
   
 done
 
 }
 
-echo "Welcome to daily life essential tools"
-home
+
+
+echo $lines
+
+
+function login() {
+    echo $lines
+    echo $liens
+    echo $lines
+    
+    centerline "--Login on your accout--"
+    echo $lines
+    read -p "Enter your email:" email
+    read -s -p "Enter your password:" password
+    echo $lines 
+    echo "Your typed email is = $email"
+    echo "Your typed password is = $password"
+    echo $lines
+
+    if  grep -q "$email:$password" admin.log; then
+        echo $lines
+        echo "Login Successful"
+        echo "$email:$password" > loggedin.log
+        echo $lines
+        echo $lines
+        centerline "--Welcome to daily life essential tools--"
+        home
+    else
+        echo $lines
+        echo "Login Failed!"
+        echo "Wrong email or password"
+        echo $lines
+        login
+    fi
+
+}
+
+function signUp() {
+    echo $lines
+    echo $lines
+    echo $lines
+    
+    centerline "---Create An Account---"
+    echo $lines
+    read -p  "Enter your email:" email
+    read -s -p "Enter your password:" password
+    echo $lines
+    echo $lines
+    echo "Your Email = $email"
+    echo "Your Password = $password"
+    echo "$email:$password" >> admin.log
+    echo $liens
+    echo "Congratulations!! Signup Successful!!"
+    echo $lines
+    echo $liens
+    echo $lines
+    login
+}
+
+
+
+if [ -f "$FILE" ]; then
+    # while :
+    # do
+    #     if [ -f "$LOGGEDIN" ]; then
+    #         echo "User already logged in"
+    #         home
+    #     else
+    #         login
+    #     fi
+    # done
+    login
+else
+    signUp
+fi
+
+
