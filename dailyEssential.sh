@@ -35,10 +35,10 @@ display(){
     echo $liens
     centerline  "---Display Infor of a Book---"
     echo $lines
-    echo "Enter address book name"
-    read ab
+    read -p "Enter address book name: " ab
+    echo $lines
     res=`ls | grep $ab | wc -w`
-
+    echo $lines
     if [ $res -gt 0 ]
     then 
        cat $ab #display the content of the address book
@@ -52,15 +52,15 @@ insert(){
     echo $liens
     centerline  "---Insert new Info in a Book---"
     echo $lines
-    echo "Enter address book name"
-    read ab
+    read -p "Enter address book name: " ab
     #check address book is available or not in current working dir
     res=`ls | grep $ab | wc -w`
 
     if [ $res -gt 0 ]
     then 
-       echo "Enter email"
-       read email
+       read -p "Enter email: " email
+ 
+
 
        #check email is present in address book or not
        len=`cat $ab | grep $email | wc -w`
@@ -68,10 +68,12 @@ insert(){
        then 
            echo "Error : Email already existing!"
         else 
+           echo $lines
            echo "Enter First name , Last Name, Mobile number, Address, Blood Group, Relation with you"
            read fname lname mobile address bldgrp rltn
-           record=`echo $fname $lname $mobile $address $bldgrp $rltn`
+           record=`echo $fname $lname $mobile $address $bldgrp $rltn $email `
            echo $record >> $ab
+           echo $lines
            echo "Record Inserted"
         fi
     else 
@@ -81,33 +83,31 @@ insert(){
 
 
 modify(){
-    echo $liens
+    echo $lines
     centerline  "---Modify data From a Book---"
     echo $lines
-    echo "Enter address book name"
-    read ab
-
+    read -p "Enter address book name: " ab
 
     res=`ls | grep $ab | wc -w`
 
     if [ $res -gt 0 ]
     then 
-       echo "Enter email"
-       read email
+       echo $lines
+       read -p "Enter email: " email
 
        len=`cat $ab | grep $email | wc -w`
        if [ $len -gt 0 ]
        then 
           echo "Enter Modified First name , Last Name, Mobile number, Address, Blood Group, Relation with you"
           read fname lname mobile address bldgrp rltn
-          new=`echo $fname $lname $mobile $address $bldgrp $rltn`
+          new=`echo $fname $lname $mobile $address $bldgrp $rltn $email`
           old=`cat $ab | grep $email`
 
           echo "Old Record : $old"
           echo "New Record : $new "
 
           sed -i s/"$old"/"$new"/g $ab 
-     
+          echo $lines
           echo "Record Modified!"
         else 
           
@@ -124,8 +124,7 @@ delete() {
     echo $liens
     centerline  "---Delete Info---"
     echo $lines
-    echo "Enter address book name:"
-    read -r ab
+    read  -p "Enter address book name :" ab
 
     if [ -f "$ab" ]; then
         echo "Enter email:"
@@ -251,6 +250,7 @@ tax(){
 #   local api_url="${api_endpoint}?base=${base_currency}&symbols=${target_currency}&access_key=${api_key}"
 #   local exchange_rate=$(curl -s "$api_url" | jq -r ".rates.${target_currency}")
 #   echo "$exchange_rate"
+# }
 # }
 
 
