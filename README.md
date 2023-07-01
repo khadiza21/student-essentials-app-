@@ -9,5 +9,5 @@ Set Permission:
 chmod +x calendar.sh
 chmod +x linux_toolbox.sh
 
-
+# cd Desktop/GUB/OS_course/project/student_essentials_app/
 

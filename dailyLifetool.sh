@@ -1,5 +1,4 @@
 # !/bin/bash
-# cd Desktop/GUB/OS_course/project/student_essentials_app/
 
 FILE="admin.log"
 LOGGEDIN="loggedin.log"
